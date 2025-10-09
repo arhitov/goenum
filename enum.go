@@ -18,6 +18,10 @@ type ValueSortable interface {
 	Sorted() []string
 }
 
+func Scan[T any](value any) (T, error) {
+	return scan[T](value)
+}
+
 func Find[T any](value any) T {
 	v, _ := scan[T](value)
 	return v
