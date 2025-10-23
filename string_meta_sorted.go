@@ -29,10 +29,10 @@ func (e StringMetaSorted[VMap, VMeta]) String() string {
 	return e.Key()
 }
 
-func (e StringMetaSorted[VMap, VMeta]) Name() string {
-	switch named := any(e.Meta()).(type) {
-	case interface{ Name() string }:
-		return named.Name()
+func (e StringMetaSorted[VMap, VMeta]) Title() string {
+	switch title := any(e.Meta()).(type) {
+	case interface{ Title() string }:
+		return title.Title()
 	default:
 		return e.String()
 	}

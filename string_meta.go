@@ -28,10 +28,10 @@ func (e StringMeta[VMap, VMeta]) String() string {
 	return e.Key()
 }
 
-func (e StringMeta[VMap, VMeta]) Name() string {
-	switch named := any(e.Meta()).(type) {
-	case interface{ Name() string }:
-		return named.Name()
+func (e StringMeta[VMap, VMeta]) Title() string {
+	switch title := any(e.Meta()).(type) {
+	case interface{ Title() string }:
+		return title.Title()
 	default:
 		return e.String()
 	}
