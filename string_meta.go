@@ -8,7 +8,6 @@ type StringMeta[VMap StringValueMetaMap[VMeta], VMeta any] string
 
 type StringValueMetaMap[VMeta any] interface {
 	ValueMapper
-	NameMap() map[string]string
 	MetaMap() map[string]VMeta
 }
 
@@ -30,11 +29,12 @@ func (e StringMeta[VMap, VMeta]) String() string {
 }
 
 func (e StringMeta[VMap, VMeta]) Name() string {
-	l := newMap[VMap]().NameMap()
-	if name, ok := l[string(e)]; ok {
-		return name
+	switch named := any(e.Meta()).(type) {
+	case interface{ Name() string }:
+		return named.Name()
+	default:
+		return e.String()
 	}
-	return e.Key()
 }
 
 func (e StringMeta[VMap, VMeta]) Meta() *VMeta {

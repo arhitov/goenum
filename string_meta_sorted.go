@@ -29,6 +29,15 @@ func (e StringMetaSorted[VMap, VMeta]) String() string {
 	return e.Key()
 }
 
+func (e StringMetaSorted[VMap, VMeta]) Name() string {
+	switch named := any(e.Meta()).(type) {
+	case interface{ Name() string }:
+		return named.Name()
+	default:
+		return e.String()
+	}
+}
+
 func (e StringMetaSorted[VMap, VMeta]) Meta() *VMeta {
 	l := newMap[VMap]().MetaMap()
 	if meta, ok := l[string(e)]; ok {
